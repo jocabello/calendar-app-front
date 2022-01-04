@@ -6,7 +6,7 @@ import moment from 'moment';
 import Swal from 'sweetalert2';
 import { uiCloseModal } from '../../actions/ui';
 import { useDispatch, useSelector } from 'react-redux';
-import { eventAddNew, eventClearActive, eventUpdate } from '../../actions/events';
+import { eventClearActive, eventStartAddNew, eventStartUpdate } from '../../actions/events';
 
 // idealmente esto va en un helper como por ejemplo centerModalStyles
 const customStyles = {
@@ -108,17 +108,9 @@ export const CalendarModal = () => {
 
         
         if(activeEvent){
-            dispatch(eventUpdate(formValues))
+            dispatch(eventStartUpdate(formValues));
         }else{
-            dispatch(eventAddNew({
-                id: new Date().getTime(),
-                ...formValues,
-                user: {
-                    _id: '123',
-                    name: 'pipo'
-                }
-    
-            }));
+            dispatch(eventStartAddNew(formValues));
         }
 
         setTitleValid(true);
